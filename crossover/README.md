@@ -18,4 +18,4 @@ for example, in 'Naruto' - 'Inyasha' the size of 'Naruto' node would be number o
 
 I have used networkx python library with matplotlib to visualize the same. 
 
-[Network diag](https://github.com/nt03/HarryPotter_fanfics/blob/master/crossover/xover.png)
+![Network diag](https://github.com/nt03/HarryPotter_fanfics/blob/master/crossover/xover_nodes.png)
