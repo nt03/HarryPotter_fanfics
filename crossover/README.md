@@ -11,7 +11,7 @@ The data contains the following columns:
 `num_fanfics`: number of cross over fanfictions 
 
 
-**Data Visualization*
+**Data Visualization**
 
 I wanted to create a network diagram to analyze the interconnectivity between these fandoms. Here, the fandoms are nodes and the node-size could potentially be the number of cross-over fanfics written about it.
 for example, in 'Naruto' - 'Inyasha' the size of 'Naruto' node would be number of crossover fanfics in total written for it and node size of 'Inuyasha' would be number of crossover fanfics written for 'Inyasha-Naruto' crossover. 
