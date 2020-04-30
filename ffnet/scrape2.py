@@ -52,6 +52,7 @@ def get_date(x, key):
     
     #convert published/update date to datetime and accomodate for recent fics
     
+    #try except to catch stories with no 'Updated' field
     try:
         temp = x[key]
         
@@ -65,6 +66,8 @@ def get_date(x, key):
         else:
             try:
                 return datetime.strptime(temp, '%m/%d/%Y')
+            
+            #for stories updated/published in the current year add the %y
             except ValueError:
                 temp = temp  + '/' + datetime.now().strftime("%Y")
                 return datetime.strptime(temp, '%m/%d/%Y')
@@ -96,12 +99,10 @@ def get_story_details(item):
     return author, title, synopsis, story_link
 
         
-
 def clean(item):
     
     '''
     clean the html element to get story metadata
-    
     '''
     
     x = item.find("div", class_="z-padtop2 xgray").text.split(" - ")
@@ -129,15 +130,12 @@ def clean(item):
     x = [i.split(": ") for i in x]
     x = {key:value for key, value in x}
     
-    
     #update date data
     x['Published'] = get_date(x, 'Published')
     x['Updated'] = get_date(x, 'Updated')
     
-    
     #get story author, title, synopsis, url
-    author, title, synopsis, story_link = get_story_details(item)
-    
+    author, title, synopsis, story_link = get_story_details(item) 
     
     #create a dict of these attributes      
     doc = {
@@ -162,7 +160,7 @@ def clean(item):
     
 def main():
     
-    #get the page count from commandline
+    #get the to and from page numbers from commandline
     
     from_page = int(sys.argv[1]) 
     to_page = int(sys.argv[2])
@@ -186,13 +184,12 @@ def main():
         for item in l:
             fic = clean(item)
             df.append(fic)
-            
+    
+    #convert the list of dicts into a dataframe and write it to a CSV file
     df = pd.DataFrame(df)
     
     date = datetime.now().strftime("%m.%d.%Y")
-    path = "C:/Users/tneha/desktop/ds_self/ffnet/dashboard/"
-    
-    df.to_csv(f"{path}data/hp_{date}.csv", index= False)
+    df.to_csv(f"data/hp_{date}.csv", index= False)
         
 
     
